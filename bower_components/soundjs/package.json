@@ -1,0 +1,58 @@
+{
+  "author": {
+    "name": "John Pradeep"
+  },
+  "name": "soundjs",
+  "description": "A module to access sound cloud, you can upload tracks, manage playlist etc",
+  "version": "0.0.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yehohanan7/soundjs"
+  },
+  "main": "./src/main",
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "dependencies": {
+    "request": "2.30.0",
+    "underscore": "1.5.2",
+    "q": "1.0.0",
+    "oauth": "~0.9.11",
+    "requirejs": "~2.1.10",
+    "form-data": "~0.1.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.16.2",
+    "chai": "1.8.1",
+    "sinon-chai": "2.4.0",
+    "chai-as-promised": "~4.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/yehohanan7/soundjs/issues"
+  },
+  "homepage": "https://github.com/yehohanan7/soundjs",
+  "_id": "soundjs@0.0.6",
+  "dist": {
+    "shasum": "876efe488e7522099924d9bbda42ead6cf6525ae",
+    "tarball": "https://registry.npmjs.org/soundjs/-/soundjs-0.0.6.tgz"
+  },
+  "_from": "soundjs@",
+  "_npmVersion": "1.3.24",
+  "_npmUser": {
+    "name": "yehohanan7",
+    "email": "yehohanan7@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "yehohanan7",
+      "email": "yehohanan7@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "876efe488e7522099924d9bbda42ead6cf6525ae",
+  "_resolved": "https://registry.npmjs.org/soundjs/-/soundjs-0.0.6.tgz",
+  "readme": "ERROR: No README data found!"
+}

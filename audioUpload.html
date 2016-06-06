@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8" ng-app="test.module">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="lib/angular-route.js"></script>
+	<script src="lib/angular-material.min.js"></script>
+	<script src="lib/angular-ui-router.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="js/index2.js"></script>
+	<script src="https://connect.soundcloud.com/sdk/sdk-3.1.1.js"></script>
+	<script>
+        var myApp = angular.module('myApp', []);
+        myApp.directive('fileModel', ['$parse', function ($parse) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var model = $parse(attrs.fileModel);
+                    var modelSetter = model.assign;
+
+                    element.bind('change', function(){
+                        scope.$apply(function(){
+                            modelSetter(scope, element[0].files[0]);
+                        });
+                    });
+                }
+            };
+        }]);
+
+        myApp.service('fileUpload', ['$http', function ($http) {
+            this.uploadFileToUrl = function(file, uploadUrl){
+                var fd = new FormData();
+                fd.append('file', file);
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+                .success(function(){
+                })
+                .error(function(){
+                });
+            }
+        }]);
+        myApp.factory("uploadfile",function($http,$q){
+
+            var obj={};
+            obj.uploadAudio=function(file,title){
+                SC.upload({
+                  file:file, // a Blob of your WAV, MP3...
+                  title: title
+              }).then(function(success){
+
+              },function(reason){
+
+              });
+          }
+          return obj;
+      })
+        myApp.controller('myCtrl', ['$scope','fileUpload','uploadfile', function($scope, fileUpload,uploadfile){
+            $scope.uploadFile = function(){
+                var file = $scope.myFile;
+                console.log('file is ',file);
+                //var uploadUrl = "/fileUpload";
+                uploadfile.uploadAudio(file,file.name);
+                //fileUpload.uploadFileToUrl(file, uploadUrl);
+            };
+        }]);
+</script>
+</head>
+<body style="padding-top: 100px">
+    <div ng-controller = "myCtrl">
+        <input type="file" file-model="myFile"/>
+        <button ng-click="uploadFile()">upload me</button>
+    </div>
+</body>
+</html>

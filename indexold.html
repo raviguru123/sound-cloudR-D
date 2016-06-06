@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="directive.module">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="lib/angular-material.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="js/index.js"></script>
+	<style>
+		.md-datepicker-calendar-pane{
+			z-index:1051 !important;
+		}
+		.md-datepicker-button {
+			display: none;
+		}
+
+	</style>>
+	<script></script>
+
+</head>
+<body style="margin: 40px;margin-top:100px" ng-controller="DirectiveController">
+	<md-datepicker ng-model="date" md-placeholder="Start Date"></md-datepicker>
+	<br/>
+	<md-datepicker md-min-date="date" ng-model="maxDate" md-placeholder="End Date"></md-datepicker>
+	<br/>
+	<br/>
+	<!-- Trigger the modal with a button -->
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>Some text in the modal.</p>
+					<md-datepicker md-min-date="minDate" ng-model="maxDate" md-placeholder="End Date"></md-datepicker>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<input type="text" name="" ng-model="pageName">
+	<ul>
+		<li>{{li1}}</li>
+		<li>{{li2}}</li>
+	</ul>
+	<label>Directive Start From here+{{pageName}}</label>
+	<card-len data={{obj}}></card-len>
+	<label>Hello this changes i am doing from vim eiditor</label>
+	<br/>
+	<label>second directive</label>
+	<card-len data={{obj}}></card-len>
+	<input type="button" value="Click Me" ng-click="showSimpleToast()" name="">
+</body>
+</html>

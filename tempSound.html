@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8" ng-app="test.module">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="lib/angular-route.js"></script>
+	<script src="lib/angular-material.min.js"></script>
+	<script src="lib/angular-ui-router.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="js/index2.js"></script>
+	<script src="https://connect.soundcloud.com/sdk/sdk-3.1.1.js"></script>
+	<script src="lib/sound.player.api.js"></script>
+	<script>
+		$(document).ready(function(){
+			SC.initialize({
+				client_id: '08ffe545ab9e0496a116d314ff0d9094',
+				redirect_uri: 'http://localhost:8887/callback.html'
+			});
+			$(".btnlogin").click(function(){
+				SC.connect().then(function() {
+					//console.log("sound cloud url=",window.location.href);
+					//console.log("parent window url",parent.window.location.href);
+					return SC.get('/me');
+				}).then(function(me) {
+					debugger;
+					alert('Hello, ' + me.username);
+				});
+			})
+
+
+
+		});
+// update user's profile description\
+
+var myApp = angular.module('myApp', []);
+myApp.directive('fileModel', ['$parse', function ($parse) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			var model = $parse(attrs.fileModel);
+			var modelSetter = model.assign;
+
+			element.bind('change', function(){
+				scope.$apply(function(){
+					modelSetter(scope, element[0].files[0]);
+				});
+			});
+		}
+	};
+}]);
+myApp.service('fileUpload', ['$http', function ($http) {
+	this.uploadFileToUrl = function(file, uploadUrl){
+		var fd = new FormData();
+		fd.append('file', file);
+		$http.post(uploadUrl, fd, {
+			transformRequest: angular.identity,
+			headers: {'Content-Type': undefined}
+		})
+		.success(function(){
+		})
+		.error(function(){
+		});
+	}
+}]);
+myApp.factory("uploadfile",function($http,$q){
+
+	var obj={};
+	obj.uploadAudio=function(file,title){
+		debugger;
+		SC.upload({
+                  file:file, // a Blob of your WAV, MP3...
+                  title: title
+              }).then(function(success){
+              	console.log("success",success);
+              },function(reason){
+              	console.log("reason=",reason);
+              });
+          }
+          return obj;
+      })
+myApp.controller('myCtrl', ['$scope','fileUpload','uploadfile', function($scope, fileUpload,uploadfile){
+
+	$scope.uploadFile = function(){
+		var file = $scope.myFile;
+		console.log('file is ',file);
+
+                //var uploadUrl = "/fileUpload";
+                uploadfile.uploadAudio(file,file.name);
+                //fileUpload.uploadFileToUrl(file, uploadUrl);
+            };
+
+        }]);
+
+$(document).ready(function(){
+	$("body").on("click",'.btninsta', function(e) {
+     // alert("twitter Click ");
+     debugger;
+     var width = 575,
+     height = 400,
+     left = ($(window).width() - width) / 2,
+     top = ($(window).height() - height) / 2,
+     url = this.href,
+     opts = 'status=1' +
+     ',width=' + width +
+     ',height=' + height +
+     ',top=' + top +
+     ',left=' + left;
+     win=window.open("https://instagram.com/oauth/authorize/?client_id=	f762d3e06bf947aca874d08417259d1c&redirect_uri=http://localhost:8887&response_type=token", 'instagram.com', opts);
+
+     var interval = window.setInterval(function() {
+     	
+     	//console.log("window url=",win.location.href)
+     	var url=win.location.href;
+     	var index=url.indexOf("=");
+     	var accesstoken=url.substring(index,url.length);
+     	console.log("access token=",accesstoken);
+     	//console.log("index=",index);
+     	win.close();
+          	   //var url=win.location.href;
+          	   //console.log("url=",url);
+          	   //console.log("html=",win.innerHtml());
+          	   try {
+          	   	if (win == null || win.closed) {
+          	   		window.clearInterval(interval);
+                   //call Bcak Function After Twitter Window Closed
+
+               }
+           }
+           catch (e) {
+           }
+       }, 1000);
+     return false;
+ });
+})
+
+
+
+
+
+
+function player(){
+//-------Start----------//
+$("#stream").click(function(){
+	SC.stream('/tracks/267224271').then(function(player){
+		player.play();
+	});
+});
+
+/*$("#btnchange").on("click",function(){
+	debugger;
+	SC.stream("/tracks/267224271", {autoPlay: true});
+});*/
+var widget;
+$("#btnchange").on("click",function(){
+	debugger;
+	SC.stream('/tracks/267224271').then(function(player){
+		player.play();
+	});
+});
+
+SC.stream('/tracks/267224271').then(function(player){
+		player.play();
+	});
+var iframeElement= document.querySelector('iframe');
+var widget1= SC.Widget(iframeElement);
+
+
+var widgetIframe = document.getElementById('sc-widget'),
+widget= SC.Widget(widgetIframe);
+
+widget.bind(SC.Widget.Events.READY, function(){
+	widget.bind(SC.Widget.Events.PLAY, function(){
+    // get information about currently playing sound
+    widget.getCurrentSound(function(currentSound){
+    	console.log('sound ' + currentSound.get('') + 'began to play');
+    });
+});
+    // get current level of volume
+    widget.getVolume(function(volume){
+    	console.log('current volume value is ' + volume);
+    });
+    // set new volume level
+    widget.setVolume(50);
+    // get the value of the current position
+});
+
+
+}
+//--------end----------//
+
+
+
+
+</script>
+<style>
+	h1 {
+		font-family: Helvetica;
+		font-weight: 100;
+	}
+	body {
+		color:#333;
+		text-align:center;
+	}
+</style>
+</head>
+<body style="padding-top: 100px" ng-controller = "myCtrl">
+	<div>
+
+		
+		<input type="button" value="Instagram login" class="btn btn-primary btninsta"/>
+		<input type="button" value="SoundCloudLogin" class="btn btn-info btnlogin" name="">
+	</div>
+	<div>
+		<input type="file" file-model="myFile"/>
+		<button ng-click="uploadFile()">upload me</button>
+	</div>
+	<br/>
+	<br/>
+	<iframe id="sc-widget" src="https://w.soundcloud.com/player/?url=http://soundcloud.com/christineandthequeens/tilted&single_active=false" width="33%" height="365" scrolling="no" frameborder="yes"></iframe>
+	<input type="button" value="change" class="btn btn-warning" id="btnchange"/>
+	<!--<div width="200px">
+		<object height="81" width="100%" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+			<param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=yourPlayerId"></param>
+			<param name="allowscriptaccess" value="always"></param>
+			<embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
+		</object>
+	</div>-->
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="test.module">
+<head>
+	<meta charset="utf-8" ng-app="test.module">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="lib/angular-material.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="js/index1.js"></script>
+	     <script>
+
+	     </script>
+</head>
+<body style="padding-top: 100px">
+	<div ng-controller="autocompleteController">
+		<md-autocomplete md-min-length=0 md-autoselect=true md-delay=0 md-autofocus=false md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.display">
+			<md-item-template>
+				<span md-highlight-text="searchText">{{item.display}}</span>
+			</md-item-template>
+			<md-not-found>
+				No matches found.
+			</md-not-found>
+		</md-autocomplete>
+
+		<input type="button" value="InstagramLogin" class="btn btn-info btnlogin" name="">
+	</div>
+</body>
+</html>

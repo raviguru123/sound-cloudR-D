@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="directive.module">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	
+	
+	<script>
+$(document).ready(function(){
+	$("body").on("click",'.btnyoutube', function(e) {
+     // alert("twitter Click ");
+     debugger;
+     var width = 575,
+     height = 400,
+     left = ($(window).width() - width) / 2,
+     top = ($(window).height() - height) / 2,
+     url = this.href,
+     opts = 'status=1' +
+     ',width=' + width +
+     ',height=' + height +
+     ',top=' + top +
+     ',left=' + left;
+     win=window.open("https://accounts.google.com/o/oauth2/auth?client_id=72677469672-o5j9kmf1ub1eu8utsathsu2bsohua4bk.apps.googleusercontent.com&redirect_uri=http://localhost:8887&scope=https://www.googleapis.com/auth/youtube&response_type=token", 'youtube.com', opts);
+
+     var interval = window.setInterval(function() {
+     	
+     	console.log("window url=",win.location.href)
+     	var url=win.location.href;
+     	var index=url.indexOf("=");
+     	var accesstoken=url.substring(index,url.length);
+     	console.log("access token=",accesstoken);
+     	//console.log("index=",index);
+     	win.close();
+          	   //var url=win.location.href;
+          	   //console.log("url=",url);
+          	   //console.log("html=",win.innerHtml());
+          	   try {
+          	   	if (win == null || win.closed) {
+          	   		window.clearInterval(interval);
+                   //call Bcak Function After Twitter Window Closed
+
+               }
+           }
+           catch (e) {
+           }
+       }, 1000);
+     return false;
+ });
+})
+
+
+	</script>
+
+</head>
+<body style="margin: 40px;margin-top:100px" ng-controller="DirectiveController">
+<h1>Hello</h1>
+<a href="">Google Login</a>
+<input type="button" class="btnyoutube"  value="Google Login" name="">
+</body>
+</html>

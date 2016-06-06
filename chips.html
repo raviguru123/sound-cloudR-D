@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="contactChipsDemo">
+<head>
+	<meta charset="utf-8" ng-app="test.module">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-animate.min.js"></script>
+	<script src="lib/angular-aria.min.js"></script>
+	<script src="lib/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="lib/angular-route.js"></script>
+	<script src="lib/angular-material.min.js"></script>
+	<script src="lib/angular-ui-router.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="js/chips.js"></script>
+	<style>
+		HTMLJSCSS
+.chipsdemoContactChips md-content.autocomplete {
+  min-height: 250px; }
+  .chipsdemoContactChips md-content.autocomplete input {
+    min-width: 400px; }
+.chipsdemoContactChips .md-item-text.compact {
+  padding-top: 8px;
+  padding-bottom: 8px; }
+.chipsdemoContactChips .contact-item {
+  box-sizing: border-box; }
+  .chipsdemoContactChips .contact-item.selected {
+    opacity: 0.5; }
+    .chipsdemoContactChips .contact-item.selected h3 {
+      opacity: 0.5; }
+  .chipsdemoContactChips .contact-item .md-list-item-text {
+    padding: 14px 0;
+    max-width: 190px; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3 {
+      margin: 0 !important;
+      padding: 0;
+      line-height: 1.2em !important; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
+  @media (min-width: 960px) {
+    .chipsdemoContactChips .contact-item {
+      float: left;
+      width: 33%; } }
+.chipsdemoContactChips md-contact-chips {
+  margin-bottom: 10px; }
+.chipsdemoContactChips .md-chips {
+  padding: 5px 0 8px; }
+.chipsdemoContactChips .fixedRows {
+  height: 250px;
+  overflow: hidden; }
+
+
+
+  .md-chips .md-chip-input-container md-autocomplete input {
+    width: 400px;
+}
+	</style>
+</head>
+<body style="padding-top: 100px">
+	<div ng-controller="myCtrl" layout="column">
+		<md-content class="md-padding autocomplete" layout="column">
+		
+	
+	<br>
+	<h2 class="md-title">Searching asynchronously.</h2>
+	
+	
+	<md-contact-chips
+	ng-model="content"
+	md-contacts="search($query)"
+	md-contact-name="name"
+	md-selected-item-change="hello(country)"
+	md-contact-image="image"
+	md-contact-email="email"
+	md-require-match="true"
+	filter-selected="hello('check')"
+	md-highlight-flags="i"
+	filter-selected="true"
+	placeholder="To">
+</md-contact-chips>
+</md-content>
+<div class="row">
+	<div></div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<md-chips name="fruits" ng-model="myItems" placeholder="Add an item" md-max-chips="5">
+  </md-chips>
+  <div ng-messages="userForm.fruits.$error" ng-if="userForm.$dirty">
+    <div ng-message="md-max-chips">You reached the maximum amount of chips</div>
+ </div>
+
+
+<input type="button" value="Click-Me" ng-click="sendValue()">
+
+
+
+  <md-input-container flex-gt-md="30">
+        <label>Timepicker Only</label>
+        <input mdc-datetime-picker date="false" time="true" type="text" id="time" short-time="true"
+               placeholder="Time"
+               min-date="minDate"
+               format="hh:mm a"
+               ng-model="time">
+    </md-input-container>
+</div>
+</div>
+</body>
+</html>
